@@ -1,3 +1,3 @@
-﻿write-verbose "Setup..."
-write-verbose "Running bootstrap..."
+﻿write-verbose "Setup..." -Verbose
+write-verbose "Running bootstrap..." -Verbose
 . .\bootstrap.ps1
