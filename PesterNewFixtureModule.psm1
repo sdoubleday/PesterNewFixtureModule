@@ -12,6 +12,7 @@ PARAM (
         }<#End Script Validation#>
         )][Alias('Path')][String]$Directory = '.\'
 ,[Parameter(Mandatory=$true)][String]$name
+,[Parameter(Mandatory=$true)][String]$Author
 )
     <#Clean up directory by removing trailing slash so I know I will not have double slash problems.#>
             IF ($Directory.LastIndexOfAny('\/') + 1 -eq $Directory.Length) {
@@ -38,7 +39,7 @@ $a = Get-Content $Fixtures[1].Fullname
 $newHeader > $Fixtures[1].Fullname <#Yes, overwrite, because...#>
 $a | Select-Object -Last ($a.Length - 3) >> $Fixtures[1].Fullname
 
-New-ModuleManifest -Path "$Directory\$name.psd1" -RootModule $name -Author "sdoubleday" -ModuleVersion 1.0
+New-ModuleManifest -Path "$Directory\$name.psd1" -RootModule $name -Author $Author -ModuleVersion 1.0
 Convert-FileEncoding -FullName "$Directory\$name.psd1" -Encoding UTF8 | Out-Null <#Convert-FileEncoding is (a) chatty and (b) will go berzerk on your files if you do not specify a specifc file path.#>
 
 Get-ChildItem $Fixtures[0].fullname | ForEach-Object { Rename-Item $_.FullName -NewName "$($_.Basename).psm1" -PassThru}
