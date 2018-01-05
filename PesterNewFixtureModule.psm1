@@ -40,7 +40,8 @@ $newHeader > $Fixtures[1].Fullname <#Yes, overwrite, because...#>
 $a | Select-Object -Last ($a.Length - 3) >> $Fixtures[1].Fullname
 
 New-ModuleManifest -Path "$Directory\$name.psd1" -RootModule $name -Author $Author -ModuleVersion 1.0
-Convert-FileEncoding -FullName "$Directory\$name.psd1" -Encoding UTF8 | Out-Null <#Convert-FileEncoding is (a) chatty and (b) will go berzerk on your files if you do not specify a specifc file path.#>
+Convert-FileEncoding -FullName "$Directory\$name.psd1" -Encoding UTF8
+Convert-FileEncoding -FullName "$Directory\$name.Tests.ps1" -Encoding UTF8
 
 Get-ChildItem $Fixtures[0].fullname | ForEach-Object { Rename-Item $_.FullName -NewName "$($_.Basename).psm1" -PassThru}
 Get-ChildItem $Fixtures[1].fullname 
